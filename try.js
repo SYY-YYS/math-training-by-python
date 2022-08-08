@@ -13,4 +13,4 @@ function create_question(no, length) {
     }
     console.log(l2);
 }
-create_question(10,10);
+console.log(typeof())

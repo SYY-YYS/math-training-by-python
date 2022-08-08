@@ -1,0 +1,37 @@
+<style>
+:root {
+    font-family: monospace;
+}
+body {
+    min-height: 100vh;
+    width: 100%;
+    background: linear-gradient(pink,blue);
+}
+input {
+    background-color: palegoldenrod;
+}
+.input-setting div {
+    display: flex;
+    align-items:center;
+}
+button {
+    font-size: 2vh;
+    background-color: rgb(236, 236, 121);
+    border-radius: 10px;
+    font-weight: 600;
+    color: brown;
+}
+p {
+    font-size: 1.7vh;
+    color: aliceblue;
+}
+#quesiton-answer-response div {
+    display: flex;
+    align-items: center;
+}
+#question {
+    font-size: x-large;
+    font-weight: 600;
+}
+
+</style>
