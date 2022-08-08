@@ -1,0 +1,127 @@
+<!-- re-making calculation training in webpage -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+        <script defer src="https://pyscript.net/alpha/pyscript.js"></script> -->
+            <link rel="stylesheet" href="math.css">
+    </head>
+    <body>
+        <section class="input-setting">
+            <h1>
+                number of questions:
+            </h1>
+            <input id="i" type="number">
+            <h1>
+                maximun number for calculation:
+            </h1>
+            <input id="inl" type="number">
+            <h1>
+                times of operation:
+            </h1>
+            <input id="noo" type="number">
+            <button type="submit" onclick="genQuestion()">Set</button>
+        </section>
+        <hr>
+        <section id="quesiton-answer-response">
+            <div id="question"></div>
+            <div>
+                <h1>answer:</h1>
+                <input id="answer" type="number">
+                <button type="submit" onclick="checkAns()">Submit</button>
+            </div>
+            <div id='response'></div>
+        </section>
+        <!-- <py-script></py-script>| -->
+        <script>
+
+            document.addEventListener('keydown', e => {
+                if (e.key === 'Enter' && e.shiftKey) {
+                    genQuestion();
+                } else if (e.key === 'Enter') {
+                    checkAns();
+                }
+            })
+            
+            var answer;
+            var number_of_question;
+
+            function get(i) {
+                return document.getElementById(i);
+            }
+            function create(i) {
+                return document.createElement(i);
+            }
+            
+
+            function p1orp2() {
+                let x = Math.random();
+                return x;
+            }
+            function draw(no) {
+                while (true) {
+                    let x = Math.round(p1orp2()*no);
+                    if (x !== 0) {
+                        return x;
+                    }
+                }
+
+            }
+            
+
+            function create_question(no, length) {
+                let l = [];
+                let l2 = [];
+                for (let i = 0; i < length+1; i++) {
+                    l.push(draw(no));
+                }
+                for (let j = 0; j < length; j++) {
+                    l2.push(Math.round(p1orp2()));
+                }
+                answer = l[0];
+
+                let question_sentence = ''+ l[0];
+
+                for (let k = 0; k < length; k++) {
+                    if (l2[k] === 0) {
+                        question_sentence += '+' + l[k+1];
+                        answer+=l[k+1];
+                    } else {
+                        question_sentence += '-' + l[k+1];
+                        answer-=l[k+1];
+                    }
+                }
+
+                // console.log(question_sentence);
+                // return x;
+
+
+                let question = get('question');
+                question.innerText = question_sentence;
+
+
+            }
+            
+            function genQuestion() {
+                let inl = get('inl').value;
+                let noo = get('noo').value;
+                let ans = create_question(inl,noo);
+
+            }
+            function checkAns() {
+                let response = get('response')
+                if (parseInt(get('answer').value) === answer) {
+                    response.innerText = 'correct';
+                    if (parseInt(get('i').value) > 0) {
+                        genQuestion();
+                        get('i').value = parseInt(get('i').value) - 1;
+                    }
+                } else {
+                    response.innerText = 'wrong, try again';
+                }
+
+            }
+
+        </script>
+    </body>
+</html>

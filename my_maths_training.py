@@ -1,6 +1,6 @@
 from random import randint
 from time import *
-import os
+# import os
 
 
 def p1or2():
@@ -52,7 +52,7 @@ if __name__ == '__main__':
                 t1 = perf_counter()
                 try:
                     a = int(input('\ninput your answer'))
-                    os.system('cls')
+                    # os.system('cls')
                 except:
                     print('please enter a number')
                     break
