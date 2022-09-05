@@ -87,11 +87,14 @@ p {
 #quesiton-answer-response  {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: center;
     
 }
 #question {
     background-color: palegoldenrod;
+    min-width: 20vw;
+    min-height: 10vh;
+    border: 1px solid black;
     margin: 10px 20px 10px;
     font-size: x-large;
     font-weight: 600;
@@ -99,6 +102,10 @@ p {
     flex-direction: column;
     align-items: flex-end;
 }
+#question div {
+    margin: 5px 20px 5px;
+}
+
 #quesiton-answer-response div{
     display: flex;
 }
