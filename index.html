@@ -5,9 +5,11 @@
         <!-- <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
         <script defer src="https://pyscript.net/alpha/pyscript.js"></script> -->
             <link rel="stylesheet" href="math.css">
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
         <section id="test"></section>
+        <i class="fa fa-bars"></i>
         <section class="turn-abacus">
             <h1>
                 Inline / Abacus mode
@@ -34,19 +36,19 @@
                     times of operation:
                 </h1>
                 <input id="noo" type="number">
-                <a onclick="genQuestion()">Set</a>
+                <a id="setting" onclick="genQuestion()">Set</a>
                 <p>[shift + enter]</p>
             </div>
 
         </section>
         <hr>
-        <section id="quesiton-answer-response">
+        <section class="question-answer-response">
             <div class="question-space">
                 <h1>Q.&ensp;</h1>
                 <div id="question"></div>
             </div>
 
-            <div>
+            <div class="answer-row">
                 <h1>answer:</h1>
                 <input id="answer" type="number">
                 <a  onclick="checkAns()">Submit</a>

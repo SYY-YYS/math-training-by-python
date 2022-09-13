@@ -5,6 +5,23 @@ document.addEventListener('keydown', e => {
         checkAns();
     }
 })
+document.querySelector('.fa').addEventListener('click', () => {
+    document.querySelector('.input-setting').classList.toggle('hide');
+    document.querySelector('.turn-abacus').classList.toggle('hide');
+    let barsIcon = document.querySelector('.fa.fa-bars');
+    barsIcon.classList.toggle('show');
+})
+document.querySelector('#setting').addEventListener('click', ()=>{
+    if(window.innerWidth < 1100) {
+        document.querySelector('.input-setting').classList.toggle('hide');
+        document.querySelector('.turn-abacus').classList.toggle('hide');
+        let barsIcon = document.querySelector('.fa.fa-bars');
+        barsIcon.classList.toggle('show');
+
+        document.querySelector('.question-answer-response').classList.add('start');
+        
+    }
+})
 
 var answer;
 var number_of_question;
