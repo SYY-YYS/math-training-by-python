@@ -112,6 +112,7 @@ p {
 i {
     display: none;
 }
+
 @media (max-width: 1100px) {
     .fa.fa-bars {
         font-size: 5vh;

@@ -4,6 +4,7 @@
     <head>
         <!-- <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
         <script defer src="https://pyscript.net/alpha/pyscript.js"></script> -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
             <link rel="stylesheet" href="math.css">
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
@@ -19,6 +20,9 @@
             </div>
         </section>
         <section class="input-setting">
+            <div class="login-session">
+                <a href="http://localhost:8030/login">Login/Register</a>
+            </div>
             <div>
                 <h1>
                     number of questions:
@@ -57,6 +61,9 @@
             <div id='response'></div>
         </section>
         <!-- <py-script></py-script>| -->
+        
+        <!-- jquery -->
+        <script type="text/javascript" src="./node_modules/axios/dist/browser/axios.cjs"></script>
         <script src="math.js"></script>
     </body>
 </html>

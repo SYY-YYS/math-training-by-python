@@ -1,5 +1,13 @@
 document.addEventListener('keydown', e => {
     if (e.key === 'Enter' && e.shiftKey) {
+        $('.input-setting').toggleClass('hide');
+        $('.turn-abacus').toggleClass('hide');
+        $('.fa.fa-bars').toggleClass('show');
+        $('.question-answer-response').toggleClass("start")
+        $('#answer').focus()
+        startTime = Date.now()/1000
+        trialnumber = parseInt($("#i").text())
+        console.log(typeof(trialnumber))
         genQuestion();
     } else if (e.key === 'Enter') {
         checkAns();
@@ -11,20 +19,52 @@ document.querySelector('.fa').addEventListener('click', () => {
     let barsIcon = document.querySelector('.fa.fa-bars');
     barsIcon.classList.toggle('show');
 })
-document.querySelector('#setting').addEventListener('click', ()=>{
-    if(window.innerWidth < 1100) {
-        document.querySelector('.input-setting').classList.toggle('hide');
-        document.querySelector('.turn-abacus').classList.toggle('hide');
-        let barsIcon = document.querySelector('.fa.fa-bars');
-        barsIcon.classList.toggle('show');
+// document.querySelector('#setting')
+$(document).ready( function() {
+    console.log("document is ready, time now is : ", Date.now()/1000);
+    $('#setting')
+    .on('click', ()=>{
+        if(window.innerWidth < 1100) {
+            $('.input-setting').toggleClass('hide');
+            $('.turn-abacus').toggleClass('hide');
+            $('.fa.fa-bars').toggleClass('show');
+            $('.question-answer-response').toggleClass("start")
+            $('#answer').focus()
+            startTime = Date.now()/1000
+            trialnumber = parseInt($("#i").text())
+        }
+    });
 
-        document.querySelector('.question-answer-response').classList.add('start');
+    // login session
+
+    
+
+
+})
+
+var timeList = [];
+console.log("time:", typeof(1.456) == "number", startTime)
+function Stopper() {
+    // indicate very first time
+    if (startTime == undefined) {
+        startTime =  Date.now()/1000;
+    } else {
+        timeStop = timeStop?timeStop:startTime;
+        const timediff = Date.now()/1000-timeStop;
+        console.log(timediff);
+        if(typeof(timediff) == "number") {
+            timeList.push(timediff);
+            timeStop = Date.now()/1000;
+        }
         
     }
-})
+
+}
+var startTime, timeStop;
 
 var answer;
 var number_of_question;
+
 
 function get(i) {
     return document.getElementById(i);
@@ -88,7 +128,9 @@ function create_question(no, length) {
 
     
     var question_sentence;
+    var trialnumber;
     let spacing;
+    // abacus mode
     if (getComputedStyle(turningLocation).justifyContent === 'right') {
         spacing = '\n';
         question_sentence = ' ' + l[0];
@@ -134,24 +176,58 @@ function create_question(no, length) {
     }
 }
 
+
 function genQuestion() {
     let inl = get('inl').value;
     let noo = get('noo').value;
+    
     question.innerHTML = '';
     if (inl && noo) {
         let ans = create_question(inl,noo);
+        
     };
 }
-function checkAns() {
+
+// testing:
+axios.get("http://localhost:8030/dataOperation")
+.then(function (res) {
+    console.log(res)
+}).catch((err) => {
+    if(err) throw err;
+})
+
+
+
+async function checkAns() {
     let response = get('response')
     if (parseInt(get('answer').value) === answer) {
+        Stopper();
         response.innerText = 'correct';
         get('answer').value = '';
-        if (parseInt(get('i').value) > 0) {
+        if (parseInt(get('i').value) > 1) {
             genQuestion();
             get('i').value = parseInt(get('i').value) - 1;
         } else {
-            response.innerText = 'Done!';
+            response.innerText = timeList;
+            $("#question").text("Questions Done!")
+            console.log(timeList);
+
+            // here sending data to backend
+            // first check if login
+            // await axios.get("http://localhost:8030/userProfile")
+            // .then(function (res) {
+            //     console.log(res)
+            // }).catch((err) => {
+            //     if(err) throw err;
+            // })
+
+            // then calculate averagetime and minTime and get trialnumberV
+            let minTime = Math.min(...timeList);
+            let sumoftime = timeList.reduce((x,y)=> {return x + y}, 0);
+            let averagetime = sumoftime/trialnumber;
+            console.log(minTime, averagetime, trialnumber)
+
+            
         }
     } else {
         response.innerText = 'wrong, try again';
@@ -159,3 +235,10 @@ function checkAns() {
     }
 
 }
+
+
+// new update: collect data and send to backend
+
+// logic: get time between calculation and total time, times of calculation and trialnumber
+
+
