@@ -22,6 +22,16 @@ document.querySelector('.fa').addEventListener('click', () => {
 // document.querySelector('#setting')
 $(document).ready( function() {
     console.log("document is ready, time now is : ", Date.now()/1000);
+
+
+    // const cookieValue = document.cookie
+    // .split("; ")
+    // .find((row) => row.startsWith("test2="))
+    // ?.split("=")[1];
+
+    // console.log("cookie id:", cookieValue)
+
+
     $('#setting')
     .on('click', ()=>{
         if(window.innerWidth < 1100) {
@@ -43,7 +53,10 @@ $(document).ready( function() {
 })
 
 var timeList = [];
-console.log("time:", typeof(1.456) == "number", startTime)
+
+document.cookie = "id=hello; SameSite=None; Secure";
+
+
 function Stopper() {
     // indicate very first time
     if (startTime == undefined) {
@@ -189,9 +202,21 @@ function genQuestion() {
 }
 
 // testing:
-axios.get("http://localhost:8030/dataOperation")
+axios.interceptors.request.use(
+    config => {
+        config.headers["Access-Control-Allow-Origin"] = "http://localhost:8030";
+            return config;
+    },
+    error => {
+        return Promise.reject(error);
+    }
+)
+
+axios.get("http://localhost:8030/dataOperation",{
+    withCredentials: true,
+})
 .then(function (res) {
-    console.log(res)
+    console.log(res.data)
 }).catch((err) => {
     if(err) throw err;
 })
